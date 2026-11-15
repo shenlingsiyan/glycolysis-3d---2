@@ -1,0 +1,211 @@
+/* ---------- 极简 Q 版风格 ---------- */
+:root {
+  --bg: #fbf7f0;
+  --ink: #4b4e57;
+  --ink-soft: #8a8d96;
+  --accent1: #a9cde8;   /* Phase 1 柔蓝 */
+  --accent2: #aedcb5;   /* Phase 2 柔绿 */
+  --card: rgba(255, 255, 255, 0.92);
+  --hairline: #eae3d6;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Quicksand', 'Segoe UI', system-ui, sans-serif;
+  color: var(--ink);
+}
+
+body {
+  background:
+    radial-gradient(120% 90% at 50% 0%, #fffdf9 0%, var(--bg) 55%, #f5efe4 100%);
+  user-select: none;
+}
+
+#stage { position: absolute; inset: 0; }
+#stage canvas { display: block; }
+
+#loading {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; color: var(--ink-soft); letter-spacing: 0.12em;
+}
+
+/* ---------- 阶段横幅 ---------- */
+#phaseBanner {
+  position: absolute; top: 26px; left: 0; right: 0;
+  display: flex; justify-content: center;
+  pointer-events: none;
+}
+.phase-pill {
+  position: absolute;
+  padding: 9px 26px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: none;
+}
+.phase1 { background: var(--accent1); color: #2e4a63; }
+.phase2 { background: var(--accent2); color: #2c5a3a; }
+
+/* ---------- ATP 账本（左上角） ---------- */
+#atpLedger {
+  position: absolute; top: 24px; left: 24px;
+  padding: 14px 20px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  opacity: 0;
+  pointer-events: none;
+  min-width: 168px;
+}
+.ledger-title {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+.ledger-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px; font-weight: 600; color: var(--ink);
+  padding: 2px 0;
+}
+.ledger-row span { font-variant-numeric: tabular-nums; font-weight: 700; }
+.val-neg { color: #d9534f; }
+.val-pos { color: #3f9d63; }
+.val-zero { color: var(--ink-soft); }
+.val-pop { animation: ledgerPop 0.35s ease; }
+@keyframes ledgerPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.ledger-row span { display: inline-block; }
+
+/* ---------- 片头 / 片尾卡片 ---------- */
+.overlay-card {
+  position: absolute; top: 40%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  padding: 34px 52px;
+  border-radius: 28px;
+  background: var(--card);
+  border: 1px solid var(--hairline);
+}
+.intro-title {
+  font-size: 44px; font-weight: 700; letter-spacing: 0.22em;
+  color: var(--ink);
+}
+.intro-sub { margin-top: 12px; font-size: 16px; color: var(--ink-soft); font-weight: 500; }
+.intro-hint { margin-top: 20px; font-size: 13px; color: var(--ink-soft); letter-spacing: 0.06em; }
+
+.outro-title { font-size: 22px; font-weight: 700; letter-spacing: 0.14em; color: var(--ink-soft); }
+.outro-line { margin-top: 18px; display: flex; gap: 12px; justify-content: center; }
+.chip {
+  padding: 10px 20px; border-radius: 999px;
+  font-size: 16px; font-weight: 700;
+}
+.chip-pink   { background: #ffd3dc; color: #93414f; }
+.chip-yellow { background: #ffe7ae; color: #8a6d2f; }
+.chip-green  { background: #bfe8c8; color: #2c5a3a; }
+.outro-sub { margin-top: 18px; font-size: 13px; color: var(--ink-soft); }
+
+/* ---------- 底部面板 ---------- */
+#bottomPanel {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 0 28px 22px;
+  display: flex; flex-direction: column; gap: 12px;
+  align-items: center;
+}
+
+#equation {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  opacity: 0;
+  max-width: 92%;
+}
+#eqEnzyme {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+  color: #fff;
+  background: #b7b1d9;
+  padding: 6px 14px; border-radius: 999px;
+  white-space: nowrap;
+}
+#eqText { font-size: 16px; font-weight: 600; white-space: nowrap; }
+
+#player {
+  display: flex; align-items: center; gap: 16px;
+  width: min(860px, 94vw);
+}
+#playBtn {
+  width: 44px; height: 44px; flex: 0 0 auto;
+  border: none; border-radius: 999px;
+  background: var(--ink); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+#playBtn:hover { background: #3a3d46; }
+
+#trackWrap { position: relative; flex: 1; height: 44px; }
+
+#track {
+  position: absolute; top: 50%; left: 0; right: 0;
+  transform: translateY(-50%);
+  height: 14px; border-radius: 999px;
+  background:
+    linear-gradient(90deg,
+      #efe9dd 0%, #efe9dd calc(4.48% - 1px),
+      var(--accent1) 4.48%, var(--accent1) calc(49.25% - 1px),
+      var(--accent2) 49.25%, var(--accent2) calc(94.03% - 1px),
+      #efe9dd 94.03%, #efe9dd 100%);
+  cursor: pointer;
+  touch-action: none;
+}
+#trackFill {
+  position: absolute; top: 0; left: 0; bottom: 0;
+  width: 0;
+  border-radius: 999px;
+  background: rgba(75, 78, 87, 0.28);
+}
+#trackHandle {
+  position: absolute; top: 50%;
+  width: 24px; height: 24px;
+  border-radius: 999px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+#ticks { position: absolute; inset: 0; pointer-events: none; }
+.tick {
+  position: absolute; top: 50%;
+  width: 5px; height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  transform: translate(-50%, -50%);
+}
+.tick-num {
+  position: absolute;
+  font-size: 11px; font-weight: 600;
+  color: var(--ink-soft);
+  transform: translateX(-50%);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+#timeLabel {
+  flex: 0 0 auto;
+  font-size: 13px; font-weight: 600;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}

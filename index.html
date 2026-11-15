@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glycolysis · Interactive 3D Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="stage"></div>
+
+  <!-- Phase banner (top center) -->
+  <div id="phaseBanner">
+    <span id="ph1" class="phase-pill phase1">Phase 1 · Energy-Investment</span>
+    <span id="ph2" class="phase-pill phase2">Phase 2 · Energy-Payoff</span>
+  </div>
+
+  <!-- ATP ledger (top left) -->
+  <div id="atpLedger">
+    <div class="ledger-title">ATP Ledger</div>
+    <div class="ledger-row">Net <span id="netVal" class="val-zero">0</span></div>
+    <div class="ledger-row">Consumed <span id="consVal">0</span></div>
+    <div class="ledger-row">Produced <span id="prodVal">0</span></div>
+  </div>
+
+  <!-- Intro card -->
+  <div id="introCard" class="overlay-card">
+    <div class="intro-title">GLYCOLYSIS</div>
+    <div class="intro-sub">From Glucose to Pyruvate · 10 Enzymatic Steps</div>
+    <div class="intro-hint">Drag the timeline below to explore</div>
+  </div>
+
+  <!-- Outro card -->
+  <div id="outroCard" class="overlay-card">
+    <div class="outro-title">Net Yield</div>
+    <div class="outro-line">
+      <span class="chip chip-pink">2 Pyruvate</span>
+      <span class="chip chip-yellow">2 ATP</span>
+      <span class="chip chip-green">2 NADH</span>
+    </div>
+    <div class="outro-sub">Aerobic → mitochondria · Anaerobic → lactate / ethanol</div>
+  </div>
+
+  <!-- Bottom panel: equation + progress bar -->
+  <div id="bottomPanel">
+    <div id="equation">
+      <span id="eqEnzyme"></span>
+      <span id="eqText"></span>
+    </div>
+    <div id="player">
+      <button id="playBtn" aria-label="Play / Pause">
+        <svg id="iconPlay" viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <svg id="iconPause" viewBox="0 0 24 24" width="18" height="18" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor"/></svg>
+      </button>
+      <div id="trackWrap">
+        <div id="track">
+          <div id="trackFill"></div>
+          <div id="trackHandle"></div>
+        </div>
+        <div id="ticks"></div>
+      </div>
+      <div id="timeLabel">0:00 / 1:07</div>
+    </div>
+  </div>
+
+  <div id="loading">Loading…</div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
